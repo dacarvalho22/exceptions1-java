@@ -40,9 +40,19 @@ public class Reservado {
 		return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS); 
 	}
 	
-	public void atualizaDatas(Date entrada, Date saida) {
+	// Método criado para tratar o error na CLASSE PRINCIPAL
+	public String atualizaDatas(Date entrada, Date saida) {
+		Date dataHoje = new Date();
+		String msg = null;
+		if (entrada.before(dataHoje) && saida.before(dataHoje)) {
+			msg = ("As datas de reserva para atualização devem ser futuras. ");
+		}else if (entrada.after(saida)) {
+			msg = ("A data de saída deve ser posterior à data do entrada. ");
+		} 
 		this.entrada = entrada;
-		this.saida = saida;				
+		this.saida = saida;		
+		
+		return msg;
 	}
 
 	@Override

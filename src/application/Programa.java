@@ -18,8 +18,7 @@ public class Programa {
 		int numQuarto;
 		Date dataEntra = null;
 		Date dataSaida = null;
-		Date dataHoje = new Date();
-
+		
 		System.out.print("Número do Quarto: ");
 		numQuarto = sc.nextInt();
 		System.out.print("Entre com a data de entrada (dd/MM/yyyy): ");
@@ -36,21 +35,17 @@ public class Programa {
 			System.out.println();
 			System.out.println("Entre dados para atualização da reserva: ");
 			System.out.print("Entre com a data de entrada (dd/MM/yyyy): ");
-			dataEntra = formato.parse(sc.next());
+			dataEntra = formato.parse(sc.next());			
 			System.out.print("Entre com a data de saída (dd/MM/yyyy): ");
 			dataSaida = formato.parse(sc.next());
-
-			if (dataEntra.before(dataHoje) && dataSaida.before(dataHoje)) {
-				System.out.println("Erro na reserva: As datas de reserva para atualização devem ser futuras. ");
-			} else if (!dataSaida.after(dataEntra)) {
-				System.out.println("Erro na reserva: a data de saída deve ser posterior à data do entrada. ");
-			} else {
-				reserva.atualizaDatas(dataEntra, dataSaida);
+			
+			String error = 	reserva.atualizaDatas(dataEntra, dataSaida);
+			if(error != null) {
+				System.out.println("Erro na reserva: " + error);
+			}else {
 				System.out.println("Reservado: " + reserva);
-			}
-
+			}			
 		}
-
 		sc.close();
 	}
 
